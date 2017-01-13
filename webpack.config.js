@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+var Visualizer = require('webpack-visualizer-plugin');
 
 const entry = {
   main: './src/main',
@@ -13,6 +14,7 @@ console.log('__dirname', __dirname, process.env.isOptimized);
 if (Boolean(process.env.isOptimized) === true) {
   plugins.push(commonsPlugin);
 }
+plugins.push(new Visualizer());
 
 module.exports = {
   entry,
