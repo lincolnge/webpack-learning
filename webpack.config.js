@@ -1,6 +1,7 @@
 const webpack = require('webpack');
-var Visualizer = require('webpack-visualizer-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const isOptimized = Boolean(process.env.isOptimized);
 
 const entry = {
@@ -10,9 +11,10 @@ const entry = {
 
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 const dllPlugin = new webpack.DllReferencePlugin({
-  context: '.',
+  context: __dirname,
   manifest: require('./dist/manifest.json'),
 });
+const addLibToHtml = new AddAssetHtmlPlugin({ filepath: require.resolve('./dist/lib') });
 
 let plugins = [
   new Visualizer({
@@ -20,15 +22,15 @@ let plugins = [
   }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: isOptimized ? 'dist/index.html.tmpl' : 'index.html',
+    template: 'index.html',
     inject: 'body'
-  })
+  }),
 ];
 
 console.log('__dirname', __dirname, process.env.isOptimized, isOptimized);
 
 if (isOptimized) {
-  plugins.push(commonsPlugin, dllPlugin);
+  plugins.push(commonsPlugin, dllPlugin, addLibToHtml);
 }
 
 module.exports = {
