@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "isOptimized=true webpack -w",
     "dll": "webpack --config webpack.dll.lib.js --progress",
-    "build": "isOptimized=true webpack",
-    "build2": "webpack"
+    "build": "time npm run dll; time isOptimized=true webpack",
+    "build1": "time isOptimized=true webpack",
+    "build2": "time webpack"
   },
   "author": "",
   "license": "ISC",

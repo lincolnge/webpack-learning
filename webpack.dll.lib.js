@@ -28,7 +28,7 @@ const plugin = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new HtmlWebpackPlugin({
-    filename: 'index.html',
+    filename: 'index.html.tmpl', // 生成的文件名
     template: 'index.html',
   })
 ];
