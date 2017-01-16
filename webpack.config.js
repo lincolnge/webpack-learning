@@ -15,6 +15,10 @@ if (Boolean(process.env.isOptimized) === true) {
   plugins.push(commonsPlugin);
 }
 plugins.push(new Visualizer());
+plugins.push(new webpack.DllReferencePlugin({
+  context: '.',
+  manifest: require('./dist/manifest.json'),
+}));
 
 module.exports = {
   entry,
