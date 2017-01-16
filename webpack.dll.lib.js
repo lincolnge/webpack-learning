@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const outputPath = path.join(__dirname, 'dist');
 const fileName = '[name].js';
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 资源依赖包，提前编译
 const lib = [
@@ -25,7 +26,11 @@ const plugin = [
     name: '[name]',
     context: __dirname
   }),
-  new webpack.optimize.OccurenceOrderPlugin()
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'index.html',
+  })
 ];
 
 module.exports = {

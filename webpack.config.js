@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 var Visualizer = require('webpack-visualizer-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const entry = {
   main: './src/main',
@@ -7,18 +8,25 @@ const entry = {
 };
 
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-let plugins = [];
+let plugins = [
+  new Visualizer(),
+  new webpack.DllReferencePlugin({
+    context: '.',
+    manifest: require('./dist/manifest.json'),
+  }),
+  new HtmlWebpackPlugin({
+    title: 'Lincoln\'s World',
+    chunks: ['main', 'main2'],
+    filename: 'index.html',
+    template: 'dist/index.html',
+  })
+];
 
 console.log('__dirname', __dirname, process.env.isOptimized);
 
 if (Boolean(process.env.isOptimized) === true) {
   plugins.push(commonsPlugin);
 }
-plugins.push(new Visualizer());
-plugins.push(new webpack.DllReferencePlugin({
-  context: '.',
-  manifest: require('./dist/manifest.json'),
-}));
 
 module.exports = {
   entry,
