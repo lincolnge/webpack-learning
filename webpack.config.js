@@ -16,7 +16,7 @@ const dllPlugin = new webpack.DllReferencePlugin({
 
 let plugins = [
   new Visualizer({
-    filename: './stats.html'
+    filename: isOptimized ? './stats.html' : './stats2.html'
   }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
@@ -27,7 +27,7 @@ let plugins = [
 
 console.log('__dirname', __dirname, process.env.isOptimized, isOptimized);
 
-if (isOptimized === true) {
+if (isOptimized) {
   plugins.push(commonsPlugin, dllPlugin);
 }
 
