@@ -1,7 +1,7 @@
-var a = require('./a');
+var a = require('./lib/a');
 a.sayHello();
 
-var b = require('./b');
+var b = require('./lib/b');
 
 b.sayHello();
 console.log('hello main2');
