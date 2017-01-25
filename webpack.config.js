@@ -8,24 +8,26 @@ const path = require('path');
 
 const isOptimized = Boolean(process.env.isOptimized);
 
-const ENTRY_PATH = './src';
-const entry = {};
+let entry = {};
 const files = glob.sync('./src/**/*.js').filter((f) => {
   return !/lib/.test(f);
 });
 let filepath;
 let name;
 
+console.log('path.dirname(__dirname)', path.dirname(__dirname), __dirname);
 for (let i = 0; i < files.length; i++) {
   filepath = files[i];
-  name = path.basename(filepath, '.js');
+  name = filepath.substring(2, filepath.length - 3); // 去掉 ./ 还有 .js
   entry[name] = filepath;
+  console.log('name', name);
+  console.log('filepath', filepath);
 }
 
 // entry = glob.sync("./src/**/*.js");
 // entry = {
-//   main: './src/main.js',
-//   main2: './src/main2.js'
+//   'src/main': './src/main.js',
+//   'src/main2': './src/main2.js'
 // };
 
 console.log('entry', entry);
@@ -57,7 +59,7 @@ if (isOptimized) {
 module.exports = {
   entry,
   output: {
-    filename: 'bundle.[name].js',
+    filename: '[name].js',
     path:'./dist'
   },
   plugins
