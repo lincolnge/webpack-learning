@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const glob = require("glob");
 const path = require('path');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 const isOptimized = Boolean(process.env.isOptimized);
 
@@ -47,6 +48,9 @@ const plugins = [
     filename: 'index.html',
     template: 'index.html',
     inject: 'body'
+  }),
+  new OpenBrowserPlugin({
+    url: 'http://localhost:8080'
   }),
 ];
 
