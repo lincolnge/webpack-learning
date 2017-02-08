@@ -1,3 +1,10 @@
+console.log = console.assert;
+console.warn = console.assert;
+console.error = console.assert;
+
+console.warn('hello main2');
+const storeLog = console.log;
+
 var a = require('./lib/a');
 a.sayHello();
 
@@ -11,3 +18,6 @@ console.log('NaN', _.isNaN(NaN));
 
 var $ = require('jquery');
 console.log('$', $('body'));
+
+console.error('end main2!');
+console.log = storeLog;

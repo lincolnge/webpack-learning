@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev2": "isOptimized=true webpack -w",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --hot --inline",
     "dll": "webpack --config webpack.dll.lib.js --progress",
     "prebuild": "rm -rf dist/",
     "build": "time npm run dll; time isOptimized=true webpack",

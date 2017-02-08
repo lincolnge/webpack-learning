@@ -1,6 +1,12 @@
+const storeLog = console.log;
+
+console.log = console.assert;
+console.warn = console.assert;
+console.error = console.assert;
+
 // 测试 Decorator
 // http://es6.ruanyifeng.com/#docs/decorator
-console.log('hello, decorator!');
+console.warn('hello, decorator!');
 
 function testable(isTestable) {
   return function(target) {
@@ -26,3 +32,5 @@ class A {}
 class A {}
 A = decorator(A) || A;
 */
+console.error('end decorator!');
+console.log = storeLog;
