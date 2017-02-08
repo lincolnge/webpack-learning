@@ -66,5 +66,17 @@ module.exports = {
     filename: '[name].js',
     path:'./dist'
   },
-  plugins
+  plugins,
+  module: {
+    loaders: [{
+      test: /\.js[x]?$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['es2015'],
+        plugins: ["transform-decorators-legacy"],
+      },
+      include: path.join(__dirname, '.')
+    }]
+  }
 };
