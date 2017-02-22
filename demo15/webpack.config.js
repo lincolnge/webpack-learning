@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+// var StatsPlugin = require('stats-webpack-plugin');
+var Visualizer = require('webpack-visualizer-plugin');
 
 
 module.exports = {
@@ -11,10 +13,20 @@ module.exports = {
   ],
   output: {
     filename: 'bundle.js',
-    publicPath: '/static/'
+    path: 'static/',
+    publicPath: 'static/',
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new Visualizer(),
+    // new StatsPlugin('stats.json', {
+    //   chunkModules: true,
+    //   exclude: [/node_modules[\\\/]react/]
+    // }),
+    // new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+    // new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+    // // NOTE：如果已经压缩过的文件被重复处理，会非常耗时
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [{
@@ -23,19 +35,24 @@ module.exports = {
       include: path.join(__dirname, '.')
     }]
   },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
   devServer: {
     stats: {
-      colors: false
+      colors: true,
+      chunks: false,
     },
     proxy: {
       // "/api/*": "http://localhost:3000"
-      '/api/*': {
-        target: 'http://localhost:3000',
-        secure: false
-      }
+      // '/api/*': {
+      //   target: 'http://localhost:3000',
+      //   secure: false
+      // }
     }
   }
 };
