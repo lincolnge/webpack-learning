@@ -16,6 +16,13 @@ module.exports = {
     path: 'static/',
     publicPath: 'static/',
   },
+  stats: {
+    assets: false,
+    chunks: false,
+    children: false,
+    modules: false,
+    // colors: true
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new Visualizer(),
@@ -26,7 +33,12 @@ module.exports = {
     // new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
     // new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
     // // NOTE：如果已经压缩过的文件被重复处理，会非常耗时
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        // supresses warnings, usually from module minification
+        warnings: false
+      }
+    })
   ],
   module: {
     loaders: [{
