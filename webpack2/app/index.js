@@ -1,11 +1,7 @@
-import _ from 'lodash';
-function component () {
-  var element = document.createElement('div');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
 
-  /* lodash is required for the next line to work */
-  element.innerHTML = _.join(['Hello','webpack'], ' ');
+ReactDOM.render(<App />, document.getElementById('root'));
 
-  return element;
-}
-
-document.body.appendChild(component());
+console.log('abc 123')
