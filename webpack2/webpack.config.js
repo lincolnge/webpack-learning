@@ -9,7 +9,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: ['babel-loader'],
+      use: ['babel'],
       include: path.join(__dirname, './app')
     }]
   },
@@ -20,6 +20,17 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    // 配置模块的根目录，可以是数组。NOTE: 必须是绝对路径
+    modules: [
+      path.resolve('./node_modules'),
+      path.resolve(__dirname),
+    ]
+  },
+  resolveLoader: {
+    modules: [
+      path.join(__dirname, 'node_modules')
+    ],
+    moduleExtensions: ['-loader']
   },
   externals: {
     react: 'React',
