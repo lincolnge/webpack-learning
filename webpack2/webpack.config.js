@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const Visualizer = require('webpack-visualizer-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -22,14 +23,18 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: ['babel'],
+        exclude: /node_modules/,
         // include: path.join(__dirname, 'app')
       },
       {
-        test: /\.css$/,
-        use: [
-          'style',
-          'css'
-        ]
+        test: /\.css$|\.less$/,
+        use: [{
+          loader: 'style-loader' // creates style nodes from JS strings
+        }, {
+          loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+          loader: 'less-loader' // compiles Less to CSS
+        }]
       }
     ]
   },
@@ -62,12 +67,16 @@ module.exports = {
     new Visualizer({
       filename: 'stats-view.html'
     }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'index.html'),
+      // inject: 'body'
+    }),
   ],
   devServer: {
     hot: true,
     // enable HMR on the server
 
-    contentBase: path.resolve(__dirname, '.'),
+    contentBase: path.resolve(__dirname, 'dist'),
     // contentBase: path.resolve(__dirname, 'dist'),
     // match the output path
 
