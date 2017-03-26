@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'app/lib/test';
+import '~/app/lib/test'
 import styles from './App.css';
 import './index.less';
 

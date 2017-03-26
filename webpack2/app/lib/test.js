@@ -18,3 +18,5 @@ require(['./lib/b'], (b) => {
 // define(['./lib/b'], function (b) {
 //   b.sayHello();
 // });
+
+console.log('good, hello, xxx');
