@@ -6,7 +6,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const injectDevServer = require('./dev-server-inject');
 
 // 当访问 / 时，跳转到 /dist/index.html
-injectDevServer();
+// injectDevServer();
 
 module.exports = {
   // entry: ['./app/index.js'],
@@ -52,7 +52,7 @@ module.exports = {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     // publicPath: path.resolve(__dirname, 'dist'),
   },
   context: path.resolve(__dirname, '.'),
@@ -114,7 +114,7 @@ module.exports = {
     // match the output path
 
     // publicPath: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     stats: {
       colors: true
     },
