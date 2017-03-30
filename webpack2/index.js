@@ -9,6 +9,12 @@ const fs = require('fs');
 const url = require('url');
 const path = require('path');
 
+
+process.env.NODE_PATH = process.cwd();
+require('module').Module._initPaths();
+
+require('test.js');
+
 // const index = fs.readFileSync('index.html');
 // const server = http.createServer((req, res) => {
 //   res.statusCode = 200;
