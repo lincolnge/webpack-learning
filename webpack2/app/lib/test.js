@@ -1,5 +1,5 @@
 console.log('测试 require 的各种形式');
-
+/*
 // 这种形式的加载也是 OK 的。
 require([], () => {
   var a = require('./lib/a');
@@ -18,5 +18,5 @@ require(['./lib/b'], (b) => {
 // define(['./lib/b'], function (b) {
 //   b.sayHello();
 // });
-
+*/
 console.log('good, hello, xxx');

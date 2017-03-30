@@ -30,12 +30,12 @@ console.log('Static root dir: ' + root);
 
 
 const cacheConfig = {
-  '1-': {
+  'index-': {
     "Cache-Control": `max-age=${10}`, // 设置 10 秒。
   },
-  'index-': {
+  'index2-': {
     // 设置 Expires，即过期时间。
-    "Expires": new Date(Date.now() + 30 * 60 * 60 * 24 * 1000).toUTCString(),
+    "Expires": new Date(Date.now() + 10 * 1000).toUTCString(), // 设置 10 秒。
   },
   // 'index2-': ((stats) => {
   //   return {
@@ -52,10 +52,10 @@ const server = http.createServer(function (request, response) {
 
   // 获得对应的本地文件路径，类似 '/srv/www/css/bootstrap.css'
   const filepath = path.join(root, pathname !== '/' ? pathname : 'index.html');
-  console.log('request url: "', request.url, '"\t ---\t', 'pathname', pathname);
 
   // 获取文件状态
   fs.stat(filepath, function (err, stats) {
+    console.log('request url: "', request.url, ' == ', 'pathname', pathname);
     if (!err && stats.isFile()) {
 
       // 没有出错并且文件存在
@@ -77,6 +77,7 @@ const server = http.createServer(function (request, response) {
           options = cacheConfig[reItem](stats);
         }
         if (new RegExp(reItem).test(pathname)) {
+          console.log(Object.keys(options));
           response.writeHead(200, options);
         }
       });
@@ -105,7 +106,8 @@ const server = http.createServer(function (request, response) {
         }
       }
 
-      console.log('filepath', filepath, '\n\n');
+      // console.log('filepath', filepath);
+      console.log('\n\n');
       // 将文件流导向response
       fs.createReadStream(filepath).pipe(response);
 
