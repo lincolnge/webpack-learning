@@ -31,11 +31,11 @@ console.log('Static root dir: ' + root);
 
 const cacheConfig = {
   'index-': {
-    "Cache-Control": `max-age=${10}`, // 设置 10 秒。
+    "Cache-Control": `max-age=${300}`, // 设置 300 秒。
   },
   'index2-': {
     // 设置 Expires，即过期时间。
-    "Expires": new Date(Date.now() + 10 * 1000).toUTCString(), // 设置 10 秒。
+    "Expires": new Date(Date.now() + 300 * 1000).toUTCString(), // 设置 300 秒。
   },
   // 'index2-': ((stats) => {
   //   return {
@@ -55,6 +55,8 @@ const server = http.createServer(function (request, response) {
 
   // 获取文件状态
   fs.stat(filepath, function (err, stats) {
+    const filename = path.basename(pathname);
+    console.log('filename', filename);
     console.log('request url: "', request.url, ' == ', 'pathname', pathname);
     if (!err && stats.isFile()) {
 
@@ -94,6 +96,8 @@ const server = http.createServer(function (request, response) {
             response.writeHead(304, {
               "Last-Modified": stats.mtime.toUTCString()
             });
+            response.end();
+            return;
           }
         } else {
           // NO: then send the headers and the image
@@ -102,11 +106,26 @@ const server = http.createServer(function (request, response) {
             "Last-Modified": stats.mtime.toUTCString(),
             "Content-Length": stats.size
           });
-          // fs.createReadStream(filepath).pipe(response);
+          fs.createReadStream(filepath).pipe(response);
         }
       }
 
-      // console.log('filepath', filepath);
+      // check if none match
+      if (new RegExp('0-').test(pathname)) {
+        const hash = require("crypto").createHash('sha1').update(filename).digest('base64');
+        if (request.headers['if-none-match'] === hash){
+          console.log('etag, use browser cache');
+          response.writeHead(304);
+          response.end();
+          return;
+        }
+        console.log('no cache, send file.');
+        response.writeHead(200, {
+          "Etag": hash,
+        });
+      }
+
+      console.log('filepath', filepath);
       console.log('\n\n');
       // 将文件流导向response
       fs.createReadStream(filepath).pipe(response);
