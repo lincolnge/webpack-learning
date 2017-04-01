@@ -28,15 +28,16 @@ const root = path.resolve(process.argv[2] || './dist');
 
 console.log('Static root dir: ' + root);
 
-
 const cacheConfig = {
   'index-': {
     "Cache-Control": `max-age=${300}`, // 设置 300 秒。
   },
-  'index2-': {
+  'index2-': ((stats, timeNow) => {
     // 设置 Expires，即过期时间。
-    "Expires": new Date(Date.now() + 300 * 1000).toUTCString(), // 设置 300 秒。
-  },
+    return {
+      "Expires": new Date(timeNow + 300 * 1000).toUTCString(), // 设置 300 秒，这个是系统的时间。
+    }
+  }),
   // 'index2-': ((stats) => {
   //   return {
   //     "Last-Modified": stats && stats.mtime.toUTCString()
@@ -55,6 +56,7 @@ const server = http.createServer(function (request, response) {
 
   // 获取文件状态
   fs.stat(filepath, function (err, stats) {
+    console.log('new Date()', new Date());
     const filename = path.basename(pathname);
     console.log('filename', filename);
     console.log('request url: "', request.url, ' == ', 'pathname', pathname);
@@ -76,7 +78,8 @@ const server = http.createServer(function (request, response) {
       Object.keys(cacheConfig).forEach((reItem) => {
         let options = cacheConfig[reItem];
         if (typeof cacheConfig[reItem] === 'function') {
-          options = cacheConfig[reItem](stats);
+          const timeNow = +new Date();
+          options = cacheConfig[reItem](stats, timeNow);
         }
         if (new RegExp(reItem).test(pathname)) {
           console.log(Object.keys(options));
