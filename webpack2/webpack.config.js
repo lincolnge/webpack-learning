@@ -54,7 +54,7 @@ const webpackConfig = {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/static/',
     // publicPath: path.resolve(__dirname, 'dist'),
   },
   context: path.resolve(__dirname, '.'),
@@ -118,12 +118,12 @@ const webpackConfig = {
     historyApiFallback: true,
 
     // publicPath: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/static/',
     stats: {
       colors: true
     },
     host: '0.0.0.0',
-    port: 9565,
+    port: 9999,
     proxy: [
       {
         // 使用 Staging 环境数据，注意不要污染线上数据
