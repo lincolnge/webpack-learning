@@ -54,7 +54,7 @@ const webpackConfig = {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/static/',
+    publicPath: '/',
     // publicPath: path.resolve(__dirname, 'dist'),
   },
   context: path.resolve(__dirname, '.'),
@@ -118,7 +118,7 @@ const webpackConfig = {
     historyApiFallback: true,
 
     // publicPath: path.resolve(__dirname, 'dist'),
-    publicPath: '/static/',
+    publicPath: '/',
     stats: {
       colors: true
     },
