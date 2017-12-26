@@ -4,10 +4,21 @@ const outputPath = path.join(__dirname, 'dist');
 const fileName = '[name].js';
 
 // 资源依赖包，提前编译
-const lib = [
-  'lodash',
-  'jquery',
-];
+// const lib = [
+//   'lodash',
+//   'jquery',
+// ];
+
+let entry = {
+  lodash: ['lodash/lodash.min.js'],
+  // lodash: ['lodash'],
+  jquery: ['jquery/dist/jquery.min.js'],
+  // jquery: ['jquery'],
+}
+
+entry = {
+  lib: ['lodash/lodash.min.js', 'jquery/dist/jquery.min.js'],
+};
 
 const plugin = [
   new webpack.DllPlugin({
@@ -25,13 +36,25 @@ const plugin = [
     name: '[name]',
     context: __dirname
   }),
-  new webpack.optimize.OccurenceOrderPlugin()
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      // supresses warnings, usually from module minification
+      warnings: false
+    }
+  }),
 ];
 
+// const nodeModulesPath = './node_modules';
+
 module.exports = {
-  devtool: '#source-map',
-  entry: {
-    lib: lib
+  devtool: '#cheap-module-source-map',
+  entry,
+  resolve: {
+    alias: {
+      // jquery: path.join(nodeModulesPath, 'jquery/dist/jquery.min.js'),
+      // lodash: path.join(nodeModulesPath, 'lodash/lodash.min.js'),
+    }
   },
   output: {
     path: outputPath,
