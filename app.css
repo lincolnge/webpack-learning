@@ -1,0 +1,37 @@
+.move-cls {
+  cursor: move;
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+  /* margin: 5px; */
+  border: 5px solid;
+  /* padding: 10px; */
+  /**
+   * width 设置的 width + border * 2。
+   * 默认是 content-box。
+   */
+}
+
+.content-box {
+  background: greenyellow;
+  box-sizing: content-box;
+  padding: 10px;
+  /**
+   * margin 是不记入宽度。
+   * padding 记入宽度。
+   */
+  /* margin: 5px; */
+  border: 5px solid;
+  /**
+   * width 设置的 width + border * 2 + padding * 2。
+   */
+}
+.border-box {
+  box-sizing: border-box;
+  padding: 10px;
+  /* margin: 5px; */
+  border: 5px solid;
+  /**
+   * width 就是设置的 width。
+   */
+}
