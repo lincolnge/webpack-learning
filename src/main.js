@@ -34,3 +34,9 @@ EventUtil.addHandler(window, 'offline', function(event){
 });
 
 var move = require('./lib/move');
+
+var dot = document.querySelector('.dot-area');
+dot.innerHTML = '.'.repeat(1000);
+
+var word = document.querySelector('.word-area');
+word.innerHTML = 'a'.repeat(1000);

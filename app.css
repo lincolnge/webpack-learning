@@ -35,3 +35,13 @@
    * width 就是设置的 width。
    */
 }
+
+.word-break {
+  /**
+   * http://zhangruojun.com/chang-biao-dian-huan-xing-wen-ti/
+   */
+  /* 允许长单词换行，包括标点符号 */
+  word-wrap: break-word;
+  /* 允许在单词内换行 */
+  /* word-break: break-all; */
+}
