@@ -47,10 +47,10 @@
       color: red;/*素数变红*/
     }
 
-    p {
+    p.ulli {
       order: -1;/*让p元素显示在ul的前面*/
     }
-    p::before {
+    p.ulli::before {
       /*通过p标签的before伪元素插入统计结果*/
       content: '前 ' counter(nature-count) ' 个自然数中，有 ' counter(nonprime-count) ' 个合数，' counter(prime-count) ' 个素数' ;
     }
@@ -68,7 +68,9 @@
     <li></li>
     <li></li>
   </ul>
-  <p></p>
+  <div>
+    <p class='ulli'></p>
+  </div>
 
   <div class='content-box move-cls'>content-box</div>
   <div class='border-box move-cls'>border-box</div>
@@ -79,6 +81,16 @@
     <br />
     <div class='dot-area word-break'></div>
     <div class='word-area word-break'></div>
+  </div>
+
+  <div>
+<div style="margin-bottom: 30px;">这个段落的下外边距被合并...</div>
+<div style="margin-top: 20px;">...这个段落的上外边距被合并。</div>
+<p style="margin-bottom: 0px;">这个段落的和下面段落的距离将为20px</p>
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+<p style="margin-top: 0px;">这个段落的和上面段落的距离将为20px</p>
   </div>
 
   <!-- <script type="text/javascript" src="./dist/lib.js"></script> -->
