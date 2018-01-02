@@ -83,14 +83,20 @@
     <div class='word-area word-break'></div>
   </div>
 
+  <br/>
+
   <div>
-<div style="margin-bottom: 30px;">这个段落的下外边距被合并...</div>
-<div style="margin-top: 20px;">...这个段落的上外边距被合并。</div>
-<p style="margin-bottom: 0px;">这个段落的和下面段落的距离将为20px</p>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing">
+      https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing
+    </a>
+    <div style="margin-bottom: 30px;">这个段落的下外边距被合并...</div>
+    <div style="margin-top: 20px;">...这个段落的上外边距被合并。</div>
+    <p style="margin-bottom: 0px;">margin-bottom: 0px; 这个段落的和下面段落的距离将为20px</p>
 
-<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+    <div style="margin-top: 20px; margin-bottom: 30px;"></div>
+    <div style="margin-top: 20px; margin-bottom: 30px;"></div>
 
-<p style="margin-top: 0px;">这个段落的和上面段落的距离将为20px</p>
+    <p style="margin-top: 0px;">margin-top: 0px; 这个段落的和上面段落的距离将为20px</p>
   </div>
 
   <!-- <script type="text/javascript" src="./dist/lib.js"></script> -->
